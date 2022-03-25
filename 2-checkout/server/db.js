@@ -21,4 +21,8 @@ db.connectAsync()
   )
   .catch((err) => console.log(err));
 
+// db.storeUserData(userData) {
+
+// }
+
 module.exports = db;
