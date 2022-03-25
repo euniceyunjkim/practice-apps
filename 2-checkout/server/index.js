@@ -6,6 +6,7 @@ const logger = require("./middleware/logger");
 
 // Establishes connection to the database on server start
 const db = require("./db");
+const {addUserData} = require("./db");
 const app = express();
 
 // Adds `req.session_id` based on the incoming cookie value.
@@ -22,11 +23,18 @@ app.use(express.static(path.join(__dirname, "../client/dist")));
 app.use(express.json());
 /**** OTHER ROUTES HERE ****/
 app.post("/completed", function(req, res) {
-  
+  // console.log(req.body.userData);
+  req.body.userData.id = req.session_id;
+  // console.log(req.body.userData);
+  addUserData(req.body.userData)
+  .then(() => {
+    console.log('response added to db');
+    res.status(201).end();
+  })
+  .catch(err => {
+    console.log('response not added', err);
+  })
 })
-
-
-
 
 /**** OTHER ROUTES HERE ****/
 app.listen(process.env.PORT);

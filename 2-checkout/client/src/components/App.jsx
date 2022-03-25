@@ -33,7 +33,7 @@ function App () {
 
   // userEffect is similar to componentDidMount
   // useEffect(() => {
-    //insert some rendering function to update state later
+  //   setPageNumber(page);
   // });
 
   const currentPage = page;

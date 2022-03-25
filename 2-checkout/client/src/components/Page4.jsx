@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 function Page4 ({setPage, userData}) {
-
-  function buttonFunc (){
+  const buttonFunc = () => {
     axios.post("/completed", {userData})
-    .then(()=>setPage(0))
-    .then(console.log("Completed checkout", userData))
+      .then((data) => {
+        console.log("Completed checkout");
+        setPage(0);
+    })
     .catch(err=> console.log(err))
   }
 
@@ -52,7 +53,7 @@ function Page4 ({setPage, userData}) {
       </div>
       <br></br>
       </div>
-      <button type="button" onClick={()=>buttonFunc()}>All good!</button>
+      <button type="button" onClick={buttonFunc}>All good!</button>
     </div>
   )
 

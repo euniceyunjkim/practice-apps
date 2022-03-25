@@ -8,30 +8,30 @@ DROP TABLE IF EXISTS user_deets;
 DROP TABLE IF EXISTS user_pmt;
 
 CREATE TABLE user (
-  id INT NOT NULL,
-  first_name TEXT NOT NULL,
-  last_name TEXT NOT NULL,
-  email TEXT NOT NULL,
-  userPW TEXT NOT NULL,
+  id CHAR(255) NOT NULL,
+  first_name CHAR(255) NOT NULL,
+  last_name CHAR(255) NOT NULL,
+  email CHAR(255) NOT NULL,
+  userPW CHAR(255) NOT NULL,
   PRIMARY KEY (id)
 );
 
 CREATE TABLE user_deets (
-  userid INT NOT NULL,
-  addr TEXT NOT NULL,
-  addr2 TEXT,
-  city TEXT NOT NULL,
-  st TEXT NOT NULL,
-  zip INT NOT NULL,
-  phone INT NOT NULL,
+  userid CHAR(255) NOT NULL,
+  addr CHAR(255) NOT NULL,
+  addr2 CHAR(255),
+  city CHAR(255) NOT NULL,
+  st CHAR(255) NOT NULL,
+  zip CHAR(255) NOT NULL,
+  phone CHAR(255) NOT NULL,
   FOREIGN KEY (userid) REFERENCES user (id)
 );
 
 CREATE TABLE user_pmt (
-  userpmtid INT NOT NULL,
-  cc_num INT NOT NULL,
-  exp_date INT NOT NULL,
-  cvv INT NOT NULL,
-  pmt_zip INT NOT NULL,
+  userpmtid CHAR(255) NOT NULL,
+  cc_num CHAR(255) NOT NULL,
+  exp_date CHAR(255) NOT NULL,
+  cvv CHAR(255) NOT NULL,
+  pmt_zip CHAR(255) NOT NULL,
   FOREIGN KEY (userpmtid) REFERENCES user (id)
 );
