@@ -35,7 +35,48 @@ getWords(){
 }
 
 editWord(prev, curr) {
-  axios.post('/glossary/edit', )
+  axios.patch('/glossary/edit', {prev, curr})
+  .then(()=>
+  this.getWords())
+  .catch(err=>
+    console.log(err))
+}
+
+deleteWord(word) {
+  axios.delete('/glossary/delete', {params : word})
+  .then(()=>
+    this.getWords())
+  .catch(err=>
+    console.log(err))
+}
+
+search(type, word){
+  let result = [];
+  let wordi = word.toLowerCase();
+  if (type === "word"){
+    this.state.wordList.forEach(function (el) {
+      let current = el.word.toLowerCase();
+      if (current.includes(wordi)){
+        result.push(el)
+      }
+    })
+  } else if (type === "def") {
+    this.state.wordList.forEach(function (el) {
+      let current = el.definition.toLowerCase();
+      if (current.includes(wordi)){
+        result.push(el)
+      }
+    })
+  }
+
+  if(result.length === 0) {
+    result.push({word: "No words or definitions found with searched input", definition: ""})
+  }
+
+  this.setState({
+    wordList: result
+  })
+
 }
 
 componentDidMount() {
@@ -48,11 +89,12 @@ render () {
      <div>
      <h1 className="title">Glossary Application</h1>
      <div id="container">
-       <div id="searchWords"><Searchword/></div>
+       <div id="searchWords"><Searchword searchIt={this.search.bind(this)}/></div>
        <div id="addWords"><Addword add={this.addWord.bind(this)}/></div>
      </div>
      <h3>Word bank</h3>
-     <div id="wordbank">{this.state.wordList.map(word=> <Wordlist key={word.word} word={word}/>)}</div>
+     <button type="button" onClick={()=>this.getWords()}>Return All</button>
+     <div id="wordbank">{this.state.wordList.map(word=> <Wordlist key={word.word} word={word} editIt={this.editWord.bind(this)} deleteIt={this.deleteWord.bind(this)}/>)}</div>
      </div>
   )
 }

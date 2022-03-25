@@ -26,6 +26,23 @@ app.get('/glossary', function (req, res) {
     console.log(err))
 });
 
+app.patch('/glossary/edit', function (req, res) {
+  // console.log(req.body)
+  wordHandlers.updateWord(req.body.prev, req.body.curr)
+  .then(()=>
+  res.send())
+  .catch(err =>
+    console.log(err))
+})
+
+app.delete('/glossary/delete', function (req, res) {
+  wordHandlers.deleteWord(req.query)
+  .then(()=>
+  res.send())
+  .catch(err=>
+    console.log(err))
+})
+
 /******************************/
 
 app.listen(process.env.PORT);
